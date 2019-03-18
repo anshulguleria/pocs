@@ -5,13 +5,18 @@ import {
   View,
   StyleSheet,
   Text,
+  CheckBox,
 } from "react-native";
 
 import colors from "../utils/colors";
 
-function ListItem ({ item, removeTodo }) {
+function ListItem ({ item, removeTodo, toggleCompleted }) {
   return (
-    <View stye={ styles.itemContainer }>
+    <View style={ styles.itemContainer }>
+      <CheckBox
+        value={item.completed}
+        onValueChange={(value) => toggleCompleted(item, value)}
+      />
       <Text
         style={styles.itemText}>
         { item.value }
@@ -33,6 +38,8 @@ export default ListItem;
  */
 const styles = StyleSheet.create({
   itemContainer: {
+    //backgroundColor: "#254",
+    width: 200,
   },
   itemText: {
     color: colors.text,

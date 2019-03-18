@@ -1,24 +1,34 @@
-import React, { Fragment } from "react";
+import React from "react";
 
-import { TouchableHighlight } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 
 import ListItem from "./list-item";
 
 
-function List ({ list, removeTodo, }) {
+function List ({ list, removeTodo, toggleCompleted, }) {
   return (
-    <Fragment>
+    <ScrollView>
       {
         list.map((item) => (
-          <TouchableHighlight>
-            <ListItem
-              removeTodo={removeTodo}
-              item={item} />
-          </TouchableHighlight>
+            <View style={styles.itemContainer}>
+              <ListItem
+                removeTodo={removeTodo}
+                toggleCompleted={toggleCompleted}
+                item={item} />
+            </View>
         ))
       }
-    </Fragment>
+    </ScrollView>
   );
 }
 
 export default List;
+
+const styles = StyleSheet.create({
+  itemContainer: {
+  }
+});

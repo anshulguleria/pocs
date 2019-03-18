@@ -11,10 +11,29 @@ import List from "./components/list";
 import AddItem from "./components/add-item";
 import colors from "./utils/colors";
 
+let demoTodoList = [
+  {
+    value: "first",
+    completed: false,
+  },
+  {
+    value: "second",
+    completed: false,
+  },
+  {
+    value: "third",
+    completed: false,
+  },
+  {
+    value: "fourth",
+    completed: false,
+  }
+];
+
 class App extends Component {
   state = {
     inputValue: "",
-    todoList: [{ value: "default item", completed: false, }],
+    todoList: demoTodoList,
   }
 
   updateInputValue = (value) => {
@@ -43,6 +62,21 @@ class App extends Component {
     });
   }
 
+  toggleCompleted = (item, newValue) => {
+    this.setState({
+      todoList: this.state.todoList.map((todoItem) => {
+        if(item.value === todoItem.value) {
+          return {
+            ...todoItem,
+            completed: newValue,
+          };
+        }
+
+        return todoItem;
+      }),
+    });
+  }
+
   render () {
     let headerTitle = "To Do";
     const { todoList } = this.state;
@@ -54,11 +88,11 @@ class App extends Component {
         </View>
 
         <AddItem
-          addTodo={this.addTodo}
-        />
+          addTodo={this.addTodo} />
 
       <List
         list={todoList}
+        toggleCompleted={this.toggleCompleted}
         removeTodo={this.removeTodo} />
       </View>
     );
@@ -73,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.appBackground,
+    margin: 40,
   },
   centered: {
     alignItems: "center",
